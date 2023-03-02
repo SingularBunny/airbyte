@@ -18,6 +18,6 @@ class DockerHelpers {
     }
 
     static String getDevTaggedImage(projectDir, dockerfileName) {
-        return "${extractImageName(Paths.get(projectDir.absolutePath, dockerfileName).toString())}:dev"
+        return "${extractImageName(Paths.get(projectDir.absolutePath, dockerfileName).toString())}:${extractImageVersion(Paths.get(projectDir.absolutePath, dockerfileName).toString())}"
     }
 }
