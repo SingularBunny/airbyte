@@ -134,7 +134,11 @@ class IncrementalYandexMetricaStream(YandexMetricaStream, IncrementalMixin):
             sync_mode=sync_mode, cursor_field=cursor_field, stream_slice=stream_slice, stream_state=stream_state
         ):
             yield record
-            self._cursor_value = max(record[self.cursor_field], self._cursor_value)
+            self._cursor_value = (
+                max(record[self.cursor_field], self._cursor_value)
+                if self.cursor_field in self.cursor_field in record
+                else self._cursor_value
+            )
 
         self._start_date = self.params["end_date"]
         self._end_date = datetime.strftime(datetime.now() - timedelta(1), "%Y-%m-%d")
